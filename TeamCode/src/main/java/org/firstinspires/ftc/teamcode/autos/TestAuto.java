@@ -32,8 +32,6 @@ public class TestAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(11.8, 61.7, Math.toRadians(90)));
-        Claw claw = new Claw(hardwareMap);
-        Lift lift = new Lift(hardwareMap);
 
         // vision here that outputs position
         int visionOutputPosition = 1;
