@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.subsystem;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Config;
-// This code is based on the GM0 code for a macanum teleop found here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
+
+
 public class Drive extends SubSystem {
     private DcMotor leftFrontDrive = null;
     private DcMotor leftBackDrive = null;
