@@ -35,6 +35,11 @@ public class Drive extends SubSystem {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE); // DO NOT CHANGE
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD); // DO NOT CHANGE
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD); // DO NOT CHANGE
+
+        leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
+        leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
+        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
+        rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
     }
 
     public void update() {

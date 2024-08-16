@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import static org.firstinspires.ftc.teamcode.autos.paths.test.Near.square;
+
 import androidx.annotation.NonNull;
 
 // RR-specific imports
@@ -21,62 +23,14 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 @Autonomous(name = "TEST_AUTO", group = "Autonomous")
 public class TestAuto extends LinearOpMode {
 
-    MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(11.8, 61.7, Math.toRadians(90)));
-
-    Action trajectoryAction1;
-    Action trajectoryAction2;
-    Action trajectoryAction3;
-
-
-
     @Override
     public void runOpMode() throws InterruptedException {
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(11.8, 61.7, Math.toRadians(90)));
-
-        // vision here that outputs position
-        int visionOutputPosition = 1;
-
-        Action trajectoryAction1;
-        Action trajectoryAction2;
-        Action trajectoryAction3;
-        Action trajectoryActionCloseOut;
-
-        trajectoryAction1 = drive.actionBuilder(drive.pose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
-                .waitSeconds(3)
-                .build();
-        trajectoryAction2 = drive.actionBuilder(drive.pose)
-                .lineToY(37)
-                .setTangent(Math.toRadians(0))
-                .lineToX(18)
-                .waitSeconds(3)
-                .setTangent(Math.toRadians(0))
-                .lineToXSplineHeading(46, Math.toRadians(180))
-                .waitSeconds(3)
-                .build();
-        trajectoryAction3 = drive.actionBuilder(drive.pose)
-                .lineToYSplineHeading(33, Math.toRadians(180))
-                .waitSeconds(2)
-                .strafeTo(new Vector2d(46, 30))
-                .waitSeconds(3)
-                .build();
-        trajectoryActionCloseOut = drive.actionBuilder(drive.pose)
-                .strafeTo(new Vector2d(48, 12))
-                .build();
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, Math.toRadians(0)));
 
         waitForStart();
 
-        }
-
-
-    }
+        Actions.runBlocking(
+                square(drive)
+        );
     }
 }
