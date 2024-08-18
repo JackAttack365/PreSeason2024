@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,9 +14,13 @@ import org.firstinspires.ftc.teamcode.enums.GameStage;
 public class Config {
 
     public Telemetry telemetry;
+
     public HardwareMap hardwareMap;
+
     public Gamepad gamePad1;
     public Gamepad gamePad2;
+
+    public FtcDashboard dashboard;
 
     public GameStage stage;
 
@@ -26,13 +31,16 @@ public class Config {
     public static final String LEFT_FRONT_DRIVE = "leftFront";
     public static final String LEFT_BACK_DRIVE = "leftBack";
 
+    public static final int ROBOT_WIDTH = 18;
+
     // Current game runtime
     private ElapsedTime runtime = new ElapsedTime();
 
     // Constructor
-    public Config(Telemetry tlm, HardwareMap hwm, Gamepad gmp1, Gamepad gmp2, GameStage stage) {
+    public Config(Telemetry tlm, FtcDashboard dsh, HardwareMap hwm, Gamepad gmp1, Gamepad gmp2, GameStage stage) {
         this.telemetry = tlm;
         this.hardwareMap = hwm;
+        this.dashboard = dsh;
         this.gamePad1 = gmp1;
         this.gamePad2 = gmp2;
     }
