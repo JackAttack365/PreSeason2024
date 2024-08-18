@@ -52,24 +52,4 @@ public class Config {
         telemetry.addData("G1: bumper", "L: %b R: %b", gamePad1.left_bumper, gamePad1.right_bumper);
         telemetry.addData("G1: trigger", "L: %4.2f, R: %4.2f", gamePad1.left_trigger, gamePad1.right_trigger);
     }
-
-    // Alerts driver when endgame starts
-    public void checkTime() {
-        if (runtime.seconds() >= 90.0 && stage != GameStage.DrivePractice && !gamePad1.isRumbling()) {
-            // Endgame period begins
-            if (stage == GameStage.TeleOp) {
-                gamePad1.rumble(1000);
-                gamePad2.rumble(1000);
-                stage = GameStage.EndGame;
-            }
-            // 5 seconds left in endgame
-            else if (runtime.seconds() >= 115.0) {
-                gamePad1.rumble(1000);
-                gamePad2.rumble(1000);
-
-            }
-
-        }
-    }
-
 }
