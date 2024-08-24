@@ -35,13 +35,8 @@ public class Localizer extends SubSystem {
 
     public int lastPar0, lastPar1, lastPerp;
 
-    public double xPos, yPos, heading;
-
     @Override
     public void init() {
-        // TODO: make sure your config has **motors** with these names (or change them)
-        //   the encoders should be plugged into the slot matching the named motor
-        //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
         par0 = config.hardwareMap.get(DcMotorEx.class,"leftFront");
         par1 = config.hardwareMap.get(DcMotorEx.class,"rightFront");
         perp = config.hardwareMap.get(DcMotorEx.class,"rightBack");
@@ -49,11 +44,11 @@ public class Localizer extends SubSystem {
         // TODO: reverse encoder directions if needed
         //   par0.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        this.inPerTick = 2000;
+        this.inPerTick = 1058.3345;
 
-        xPos = 0.0;
-        yPos = 0.0;
-        heading = 0.0;
+        config.robotX = 0.0;
+        config.robotY = 0.0;
+        config.robotHeading = 0.0;
     }
 
     @Override
@@ -68,17 +63,15 @@ public class Localizer extends SubSystem {
 
         double deltaTheta = (double) (deltaPar0 - deltaPar1) / ROBOT_WIDTH;
 
-        heading += deltaTheta;
+        config.robotHeading += deltaTheta;
 
-        double deltaX = (deltaPar1 - deltaPar0) / 2.0 * Math.cos(heading) - deltaPerp * Math.sin(heading);
-        double deltaY = (deltaPar1 - deltaPar0) / 2.0 * Math.sin(heading) - deltaPerp * Math.cos(heading);
+        double deltaX = (deltaPar1 - deltaPar0) / 2.0 * Math.cos(config.robotHeading) - deltaPerp * Math.sin(config.robotHeading);
+        double deltaY = (deltaPar1 - deltaPar0) / 2.0 * Math.sin(config.robotHeading) - deltaPerp * Math.cos(config.robotHeading);
 
-        xPos += deltaX;
-        yPos += deltaY;
+        config.robotX += deltaX;
+        config.robotY += deltaY;
 
-        config.telemetry.addData("Localizer Pose Estimate","x: " + xPos + ", y: " + yPos + ", Θ: " + heading);
-
-        //config.dashboard.
+        config.telemetry.addData("Localizer Pose Estimate","x: " + config.robotX + ", y: " + config.robotY + ", Θ: " + config.robotHeading);
 
         lastPar0 = par0Pos;
         lastPar1 = par1Pos;

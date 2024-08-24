@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.subsystem.CameraStream;
+import org.firstinspires.ftc.teamcode.subsystem.Dashboard;
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
 import org.firstinspires.ftc.teamcode.subsystem.Localizer;
 import org.firstinspires.ftc.teamcode.subsystem.SubSystem;
@@ -19,7 +20,9 @@ public class ManualRobot {
         config = cfg;
         // Register the subsystem. System will not work if it's not registered
         subSystems.add(new Drive(config, isOneController));
-        subSystems.add(new CameraStream(config, isOneController));
+
+        //subSystems.add(new Localizer(config, isOneController));
+        subSystems.add(new Dashboard(config, isOneController)); // must be after localizer
     }
 
     // Initialize each subsystem

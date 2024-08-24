@@ -31,10 +31,15 @@ public class Config {
     public static final String LEFT_FRONT_DRIVE = "leftFront";
     public static final String LEFT_BACK_DRIVE = "leftBack";
 
+    public static final String LEFT_LIFT_MOTOR = "leftLift";
+    public static final String RIGHT_LIFT_MOTOR = "rightLift";
+
     public static final int ROBOT_WIDTH = 18;
 
     // Current game runtime
     private ElapsedTime runtime = new ElapsedTime();
+
+    public double robotX, robotY, robotHeading;
 
     // Constructor
     public Config(Telemetry tlm, FtcDashboard dsh, HardwareMap hwm, Gamepad gmp1, Gamepad gmp2, GameStage stage) {

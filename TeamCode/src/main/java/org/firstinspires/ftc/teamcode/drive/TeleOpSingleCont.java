@@ -16,7 +16,7 @@ public class TeleOpSingleCont extends LinearOpMode {
     Config config;
     ManualRobot manualRobot;
     GameStage stage = GameStage.TeleOp;
-    FtcDashboard dashboard = FtcDashboard.getInstance();
+    FtcDashboard dashboard;
 
     @Override
     public void runOpMode() {
@@ -33,9 +33,6 @@ public class TeleOpSingleCont extends LinearOpMode {
         while (opModeIsActive()) {
             // Update everything
             config.updateTelemetry();
-
-            // Alerts
-            config.checkTime();
 
             // runs each sub-system once
             manualRobot.update();

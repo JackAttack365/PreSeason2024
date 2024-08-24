@@ -14,7 +14,7 @@ public class DrivePractice extends LinearOpMode {
     Config config;
     ManualRobot manualRobot;
     GameStage stage;
-    FtcDashboard dashboard = FtcDashboard.getInstance();
+    FtcDashboard dashboard;
 
     @Override
     public void runOpMode() {

@@ -16,7 +16,7 @@ public class DrivePracticeSingleCont extends LinearOpMode {
     Config config;
     ManualRobot manualRobot;
     GameStage stage = GameStage.TeleOp;
-    FtcDashboard dashboard = FtcDashboard.getInstance();
+    FtcDashboard dashboard;
 
     @Override
     public void runOpMode() {
