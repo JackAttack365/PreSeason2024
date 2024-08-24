@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,9 +14,13 @@ import org.firstinspires.ftc.teamcode.enums.GameStage;
 public class Config {
 
     public Telemetry telemetry;
+
     public HardwareMap hardwareMap;
+
     public Gamepad gamePad1;
     public Gamepad gamePad2;
+
+    public FtcDashboard dashboard;
 
     public GameStage stage;
 
@@ -26,13 +31,21 @@ public class Config {
     public static final String LEFT_FRONT_DRIVE = "leftFront";
     public static final String LEFT_BACK_DRIVE = "leftBack";
 
+    public static final String LEFT_LIFT_MOTOR = "leftLift";
+    public static final String RIGHT_LIFT_MOTOR = "rightLift";
+
+    public static final int ROBOT_WIDTH = 18;
+
     // Current game runtime
     private ElapsedTime runtime = new ElapsedTime();
 
+    public double robotX, robotY, robotHeading;
+
     // Constructor
-    public Config(Telemetry tlm, HardwareMap hwm, Gamepad gmp1, Gamepad gmp2, GameStage stage) {
+    public Config(Telemetry tlm, FtcDashboard dsh, HardwareMap hwm, Gamepad gmp1, Gamepad gmp2, GameStage stage) {
         this.telemetry = tlm;
         this.hardwareMap = hwm;
+        this.dashboard = dsh;
         this.gamePad1 = gmp1;
         this.gamePad2 = gmp2;
     }
@@ -44,24 +57,4 @@ public class Config {
         telemetry.addData("G1: bumper", "L: %b R: %b", gamePad1.left_bumper, gamePad1.right_bumper);
         telemetry.addData("G1: trigger", "L: %4.2f, R: %4.2f", gamePad1.left_trigger, gamePad1.right_trigger);
     }
-
-    // Alerts driver when endgame starts
-    public void checkTime() {
-        if (runtime.seconds() >= 90.0 && stage != GameStage.DrivePractice && !gamePad1.isRumbling()) {
-            // Endgame period begins
-            if (stage == GameStage.TeleOp) {
-                gamePad1.rumble(1000);
-                gamePad2.rumble(1000);
-                stage = GameStage.EndGame;
-            }
-            // 5 seconds left in endgame
-            else if (runtime.seconds() >= 115.0) {
-                gamePad1.rumble(1000);
-                gamePad2.rumble(1000);
-
-            }
-
-        }
-    }
-
 }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,17 +11,18 @@ import org.firstinspires.ftc.teamcode.enums.GameStage;
 
 
 @TeleOp(name = "Single Controller", group = "Competition")
-public class TeleOpManualSingleCont extends LinearOpMode {
+public class TeleOpSingleCont extends LinearOpMode {
     // Config
     Config config;
     ManualRobot manualRobot;
     GameStage stage = GameStage.TeleOp;
+    FtcDashboard dashboard;
 
     @Override
     public void runOpMode() {
 
         // Create the config used in all subsystems
-        config = new Config(telemetry, hardwareMap, gamepad1, gamepad2, stage);
+        config = new Config(telemetry, dashboard, hardwareMap, gamepad1, gamepad2, stage);
         // Create the Manual Robot and register the subsystems
         manualRobot = new ManualRobot(config, true);
         // Initialize all subsystems
@@ -31,9 +33,6 @@ public class TeleOpManualSingleCont extends LinearOpMode {
         while (opModeIsActive()) {
             // Update everything
             config.updateTelemetry();
-
-            // Alerts
-            config.checkTime();
 
             // runs each sub-system once
             manualRobot.update();

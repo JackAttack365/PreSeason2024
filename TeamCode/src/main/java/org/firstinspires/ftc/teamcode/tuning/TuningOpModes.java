@@ -34,8 +34,8 @@ import java.util.List;
 public final class TuningOpModes {
     public static final Class<?> DRIVE_CLASS = MecanumDrive.class;
 
-    public static final String GROUP = "quickstart";
-    public static final boolean DISABLED = false;
+    public static final String GROUP = "tuning";
+    public static final boolean DISABLED = true; //TODO enable if needed
 
     private TuningOpModes() {}
 
@@ -162,6 +162,7 @@ public final class TuningOpModes {
         manager.register(metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
         manager.register(metaForClass(SplineTest.class), SplineTest.class);
         manager.register(metaForClass(LocalizationTest.class), LocalizationTest.class);
+        manager.register(metaForClass(LiftTuner.class), LiftTuner.class);
 
         FtcDashboard.getInstance().withConfigRoot(configRoot -> {
             for (Class<?> c : Arrays.asList(
@@ -170,7 +171,8 @@ public final class TuningOpModes {
                     LateralRampLogger.class,
                     ManualFeedforwardTuner.class,
                     MecanumMotorDirectionDebugger.class,
-                    ManualFeedbackTuner.class
+                    ManualFeedbackTuner.class,
+                    LiftTuner.class
             )) {
                 configRoot.putVariable(c.getSimpleName(), ReflectionConfig.createVariableFromClass(c));
             }

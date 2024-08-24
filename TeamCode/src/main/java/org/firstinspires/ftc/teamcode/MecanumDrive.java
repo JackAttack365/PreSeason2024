@@ -110,7 +110,7 @@ public final class MecanumDrive {
 
     public final LazyImu lazyImu;
 
-    public final Localizer localizer;
+    public final LocalizerRR localizer;
     public Pose2d pose;
 
     private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
@@ -120,7 +120,7 @@ public final class MecanumDrive {
     private final DownsampledWriter driveCommandWriter = new DownsampledWriter("DRIVE_COMMAND", 50_000_000);
     private final DownsampledWriter mecanumCommandWriter = new DownsampledWriter("MECANUM_COMMAND", 50_000_000);
 
-    public class DriveLocalizer implements Localizer {
+    public class DriveLocalizer implements LocalizerRR {
         public final Encoder leftFront, leftBack, rightBack, rightFront;
         public final IMU imu;
 
