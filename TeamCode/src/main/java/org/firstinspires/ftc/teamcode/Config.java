@@ -26,15 +26,8 @@ public class Config {
 
     // Stores the hardwareMap names as constants
     // Drive system
-    public static final String RIGHT_FRONT_DRIVE = "rightFront";
-    public static final String RIGHT_BACK_DRIVE = "rightBack";
-    public static final String LEFT_FRONT_DRIVE = "leftFront";
-    public static final String LEFT_BACK_DRIVE = "leftBack";
-
-    public static final String LEFT_LIFT_MOTOR = "leftLift";
-    public static final String RIGHT_LIFT_MOTOR = "rightLift";
-
-    public static final int ROBOT_WIDTH = 18;
+    public static final String RIGHT_DRIVE = "right";
+    public static final String LEFT_DRIVE = "left";
 
     // Current game runtime
     private ElapsedTime runtime = new ElapsedTime();
