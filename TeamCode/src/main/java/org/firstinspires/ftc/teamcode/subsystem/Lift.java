@@ -9,18 +9,18 @@ import org.firstinspires.ftc.teamcode.Config;
 public class Lift extends SubSystem {
     private DcMotor leftLift, rightLift;
 
-    double Kp;
-    double Ki = 0.01;
-    double Kd = 0.05;
+    double Kp = 1;
+    double Ki = 0;
+    double Kd = 0;
 
-    double targetPosition = 0;  // Initialize with a default position
+    double targetPosition = 0;
     double currentPosition = 0;
     double error = 0;
 
     double integral = 0;
     double previousError = 0;
 
-    private final int LIFT_TOP_STOP = 1000;
+    private final int LIFT_TOP_STOP = 1000; // TODO tune using LiftTuner
 
     private final int LIFT_BOTTOM_STOP = 100;
 
