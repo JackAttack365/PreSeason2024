@@ -176,5 +176,6 @@ public final class TuningOpModes {
             )) {
                 configRoot.putVariable(c.getSimpleName(), ReflectionConfig.createVariableFromClass(c));
             }
+        });
     }
 }
