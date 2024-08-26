@@ -10,65 +10,62 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class LiftTuner extends LinearOpMode {
     DcMotor leftLift, rightLift;
 
-    DcMotor[] lift = new DcMotor[2];
+    //DcMotor[] lift = new DcMotor[2];
 
-    public static volatile double Kp = 1;
-    public static volatile double Ki = 0;
-    public static volatile double Kd = 0;
-
-    double targetPosition = 0;
-    double currentPosition = 0;
-    double error = 0;
-
-    double integral = 0;
-    double previousError = 0;
+    int rightZero = 0, leftZero = 0;
 
     public final double inPerTick = 81.3798387812;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        leftLift = hardwareMap.get(DcMotor.class, "leftLift");
+        //leftLift = hardwareMap.get(DcMotor.class, "leftLift");
         rightLift = hardwareMap.get(DcMotor.class, "rightLift");
 
-        rightLift.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        lift[0] = (leftLift);
-        lift[1] = (rightLift);
+        //lift[0] = (leftLift);
+        //lift[1] = (rightLift);
 
+        /*
         for(DcMotor motor : lift) {
-            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
+        */
 
-        telemetry.addData("L", leftLift.getCurrentPosition());
+        //telemetry.addData("L", leftLift.getCurrentPosition());
         telemetry.addData("R", rightLift.getCurrentPosition());
 
-        telemetry.addData("Height Estimate", leftLift.getCurrentPosition()*inPerTick);
+        //telemetry.addData("Height Estimate", leftLift.getCurrentPosition()*inPerTick);
 
         telemetry.update();
 
+        waitForStart();
+
         while (opModeIsActive()) {
-            targetPosition += (gamepad2.right_trigger) * 10;
+            if (gamepad1.a) {
+                rightLift.setTargetPosition(838 + rightZero);
+                rightLift.setPower(1);
+                rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 
-            currentPosition = leftLift.getCurrentPosition();
-            error = targetPosition - currentPosition;
+            if (gamepad1.b) {
+                rightLift.setTargetPosition(rightZero);
+                rightLift.setPower(1);
+                rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 
-            integral += error;  // Accumulate error over time
-            double derivative = error - previousError;  // Change in error
+            if (gamepad1.x) {
+                rightZero = rightLift.getCurrentPosition();
+            }
 
-            // Calculate PID output
-            double power = (Kp * error) + (Ki * integral) + (Kd * derivative);
-
-            // Set motor power
-            leftLift.setPower(power);
-            rightLift.setPower(power);
-
-            previousError = error;
-
-            telemetry.addData("L", leftLift.getCurrentPosition());
+            //telemetry.addData("L", leftLift.getCurrentPosition());
             telemetry.addData("R", rightLift.getCurrentPosition());
+            telemetry.addData("rightZero", rightZero);
 
-            telemetry.addData("Height Estimate", leftLift.getCurrentPosition()*inPerTick);
+            //telemetry.addData("Height Estimate", leftLift.getCurrentPosition()*inPerTick);
 
             telemetry.update();
         }
