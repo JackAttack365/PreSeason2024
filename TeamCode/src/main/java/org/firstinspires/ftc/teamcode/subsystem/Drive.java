@@ -26,8 +26,8 @@ public class Drive extends SubSystem {
         // Most robots need the motors on one side to be reversed to drive forward.
         // When you first test your robot, push the left joystick forward
         // and flip the direction ( FORWARD <-> REVERSE ) of any wheel that runs backwards
-        left.setDirection(DcMotor.Direction.REVERSE); // DO NOT CHANGE
-        right.setDirection(DcMotor.Direction.FORWARD); // TODO make sure this shit works please
+        left.setDirection(DcMotor.Direction.FORWARD); // DO NOT CHANGE
+        right.setDirection(DcMotor.Direction.REVERSE);
 
         left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
         right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // DO NOT CHANGE
