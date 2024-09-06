@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,20 +13,7 @@ import org.firstinspires.ftc.teamcode.Config;
 public class Lift extends SubSystem {
     private DcMotor leftLift, rightLift;
 
-    double Kp = 1;
-    double Ki = 0;
-    double Kd = 0;
-
-    double targetPosition = 0;
-    double currentPosition = 0;
-    double error = 0;
-
-    double integral = 0;
-    double previousError = 0;
-
-    private final int LIFT_TOP_STOP = 1000; // TODO tune using LiftTuner
-
-    private final int LIFT_BOTTOM_STOP = 100;
+    private boolean atBottom;
 
     public Lift(Config config, boolean isOneController) {
         super(config, isOneController);
@@ -45,33 +36,35 @@ public class Lift extends SubSystem {
 
         leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        atBottom = true;
     }
 
     @Override
     public void update() {
-        targetPosition += (config.gamePad2.right_trigger) * 10;
+        if (config.gamePad1.right_trigger >= 0.1 && !leftLift.isBusy()) {
+            if (atBottom) {
+                leftLift.setTargetPosition(400);
+                rightLift.setTargetPosition(400);
 
-        targetPosition = Math.max(LIFT_BOTTOM_STOP, Math.min(targetPosition, LIFT_TOP_STOP));
+                leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        currentPosition = leftLift.getCurrentPosition();
-        error = targetPosition - currentPosition;
+                atBottom = true;
+            } else {
+                leftLift.setTargetPosition(20);
+                rightLift.setTargetPosition(20);
 
-        integral += error;  // Accumulate error over time
-        double derivative = error - previousError;  // Change in error
+                leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        // Calculate PID output
-        double power = (Kp * error) + (Ki * integral) + (Kd * derivative);
+                atBottom = true;
+            }
+        }
 
-        // Set motor power
-        leftLift.setPower(power);
-        rightLift.setPower(power);
-
-        previousError = error;
-
-        config.telemetry.addData("Lift Height", leftLift.getCurrentPosition());
-    }
-
-    private boolean isNotNearToStop() {
-        return ((LIFT_BOTTOM_STOP + 300) <= leftLift.getCurrentPosition()) && (leftLift.getCurrentPosition() <= (LIFT_TOP_STOP -  300));
+        if (config.gamePad1.a) {
+            leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
     }
 }

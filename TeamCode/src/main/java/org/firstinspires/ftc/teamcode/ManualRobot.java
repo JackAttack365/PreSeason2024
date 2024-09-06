@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.subsystem.CameraStream;
+import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.Dashboard;
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
+import org.firstinspires.ftc.teamcode.subsystem.Forebar;
+import org.firstinspires.ftc.teamcode.subsystem.Lift;
 import org.firstinspires.ftc.teamcode.subsystem.Localizer;
 import org.firstinspires.ftc.teamcode.subsystem.SubSystem;
 
@@ -10,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ManualRobot {
+
     // Config class to all hardware controls
     Config config;
     // List of all registered subsystems
@@ -18,11 +22,12 @@ public class ManualRobot {
     // Constructor
     public ManualRobot(Config cfg, boolean isOneController) {
         config = cfg;
+
         // Register the subsystem. System will not work if it's not registered
         subSystems.add(new Drive(config, isOneController));
-
-        //subSystems.add(new Localizer(config, isOneController));
-        subSystems.add(new Dashboard(config, isOneController)); // must be after localizer
+        subSystems.add(new Lift(config, isOneController));
+        subSystems.add(new Forebar(config, isOneController));
+        subSystems.add(new Claw(config, isOneController));
     }
 
     // Initialize each subsystem
