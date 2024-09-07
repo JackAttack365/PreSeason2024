@@ -25,7 +25,7 @@ public class ManualRobot {
 
         // Register the subsystem. System will not work if it's not registered
         subSystems.add(new Drive(config, isOneController));
-        subSystems.add(new Lift(config, isOneController));
+        //subSystems.add(new Lift(config, isOneController));
         subSystems.add(new Forebar(config, isOneController));
         subSystems.add(new Claw(config, isOneController));
     }

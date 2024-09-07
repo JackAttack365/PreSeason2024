@@ -37,6 +37,8 @@ public class Forebar extends SubSystem {
 
     @Override
     public void update() {
+        config.telemetry.addData("forebar", forebar.getCurrentPosition());
+
         if (config.gamePad1.left_trigger >= 0.1) {
             if (forebarInside) {
                 forebar.setTargetPosition(10);

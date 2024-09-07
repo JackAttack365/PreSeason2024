@@ -15,7 +15,7 @@ public class TeleOpSingleCont extends LinearOpMode {
     // Config
     Config config;
     ManualRobot manualRobot;
-    GameStage stage = GameStage.TeleOp;
+    GameStage stage = GameStage.TELEOP;
     FtcDashboard dashboard;
 
     @Override

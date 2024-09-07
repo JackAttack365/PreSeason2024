@@ -26,6 +26,8 @@ public class Claw extends SubSystem {
 
     @Override
     public void update() {
+        config.telemetry.addData("claw", claw.getPosition());
+
         if (config.gamePad1.right_bumper) {
             if (clawClosed) {
                 claw.setPosition(0);

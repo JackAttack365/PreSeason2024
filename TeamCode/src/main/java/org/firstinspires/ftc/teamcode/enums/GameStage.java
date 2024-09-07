@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.enums;
 
 public enum GameStage {
-    Autonomous,
-    TeleOp,
-    EndGame,
-    DrivePractice
+    AUTO,
+    TELEOP,
+    ENDGAME,
+    DRIVE_PRACTICE
 }
