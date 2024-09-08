@@ -39,15 +39,19 @@ public class Forebar extends SubSystem {
     public void update() {
         config.telemetry.addData("forebar", forebar.getCurrentPosition());
 
-        if (config.gamePad1.left_trigger >= 0.1) {
+        if (config.gamePad1.left_bumper) {
             if (forebarInside) {
-                forebar.setTargetPosition(10);
+                forebar.setTargetPosition(750);
+
+                forebar.setPower(0.8);
 
                 forebar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 forebarInside = false;
             } else {
                 forebar.setTargetPosition(0);
+
+                forebar.setPower(0.8);
 
                 forebar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 

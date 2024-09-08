@@ -28,8 +28,8 @@ public class Lift extends SubSystem {
         leftLift = config.hardwareMap.get(DcMotor.class, Config.LEFT_LIFT_MOTOR);
         rightLift = config.hardwareMap.get(DcMotor.class, Config.RIGHT_LIFT_MOTOR);
 
-        leftLift.setDirection(DcMotor.Direction.FORWARD);
-        rightLift.setDirection(DcMotor.Direction.REVERSE);
+        rightLift.setDirection(DcMotor.Direction.FORWARD);
+        leftLift.setDirection(DcMotor.Direction.REVERSE);
 
         leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -42,18 +42,25 @@ public class Lift extends SubSystem {
 
     @Override
     public void update() {
+
         if (config.gamePad1.right_trigger >= 0.1 && !leftLift.isBusy()) {
             if (atBottom) {
                 leftLift.setTargetPosition(400);
                 rightLift.setTargetPosition(400);
+
+                leftLift.setPower(0.7);
+                rightLift.setPower(0.7);
 
                 leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 atBottom = true;
             } else {
-                leftLift.setTargetPosition(20);
-                rightLift.setTargetPosition(20);
+                leftLift.setTargetPosition(50);
+                rightLift.setTargetPosition(50);
+
+                leftLift.setPower(1);
+                rightLift.setPower(1);
 
                 leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -66,5 +73,9 @@ public class Lift extends SubSystem {
             leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
+
+
+        config.telemetry.addData("liftL", leftLift.getCurrentPosition());
+        config.telemetry.addData("liftR", rightLift.getCurrentPosition());
     }
 }

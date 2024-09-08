@@ -30,11 +30,11 @@ public class Claw extends SubSystem {
 
         if (config.gamePad1.right_bumper) {
             if (clawClosed) {
-                claw.setPosition(0);
+                claw.setPosition(1);
 
                 clawClosed = false;
             } else {
-                claw.setPosition(1);
+                claw.setPosition(0.35);
 
                 clawClosed = true;
             }
