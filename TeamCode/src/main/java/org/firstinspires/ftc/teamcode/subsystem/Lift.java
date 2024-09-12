@@ -43,21 +43,21 @@ public class Lift extends SubSystem {
     @Override
     public void update() {
 
-        if (config.gamePad1.right_trigger >= 0.1 && !leftLift.isBusy()) {
+        if (config.gamePad1.right_trigger >= 0.1) {
             if (atBottom) {
-                leftLift.setTargetPosition(400);
-                rightLift.setTargetPosition(400);
+                leftLift.setTargetPosition(1400);
+                rightLift.setTargetPosition(1400);
 
-                leftLift.setPower(0.7);
-                rightLift.setPower(0.7);
+                leftLift.setPower(1);
+                rightLift.setPower(1);
 
                 leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 atBottom = true;
             } else {
-                leftLift.setTargetPosition(50);
-                rightLift.setTargetPosition(50);
+                leftLift.setTargetPosition(100);
+                rightLift.setTargetPosition(100);
 
                 leftLift.setPower(1);
                 rightLift.setPower(1);
